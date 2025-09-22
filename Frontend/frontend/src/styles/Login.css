@@ -1,0 +1,84 @@
+.login-body {
+  background-color: #f8eaff;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('/images/bg.jpeg') no-repeat center center fixed;
+}
+
+form {
+  background: #fff0ff;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(170, 112, 224, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #a14fbd;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  background: #f6dcff;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: 2px solid #c278f5;
+}
+
+button {
+  padding: 12px 20px;
+  background: #c278f5;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #a14fbd;
+  transform: scale(1.05);
+}
+
+.quote {
+  margin-top: 15px;
+  font-style: italic;
+  color: #a14fbd;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.quote {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #a14fbd;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

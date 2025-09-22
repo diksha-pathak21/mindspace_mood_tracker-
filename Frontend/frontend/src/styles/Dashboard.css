@@ -1,0 +1,183 @@
+/* dashboard.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8eaff;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;  /* ✅ Important: Allow vertical scroll */
+}
+
+
+.dashboard {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ Center content */
+  background-color: #f8eaff;
+  overflow-y: auto;     /* ✅ Allow internal scroll if needed */
+  width: 100%;
+}
+
+.dashboard-nav {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem; /* ✅ Make top part visible */
+  padding: 0 1rem;
+}
+
+
+.mood-form, .journal-history, .chart-section {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+.greeting {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #7b1fa2;
+  text-align: center;
+}
+
+.quote {
+  font-size: 1.1rem;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #9c27b0;
+}
+
+
+.mood-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.mood-buttons button {
+  font-size: 1.5rem;
+  background: none;
+  border: 2px solid #da8eff;
+  border-radius: 50%;
+  padding: 0.4rem 0.7rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.mood-buttons button:hover {
+  background-color: #da8eff;
+  color: white;
+}
+
+textarea {
+  width: 100%;
+  max-width: 500px;
+  height: 100px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  resize: none;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  background-color: #da8eff;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  margin-top: 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #b44ae0;
+  transform: scale(1.05);
+}
+
+
+
+.journal-history table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.journal-history th, .journal-history td {
+  border-bottom: 1px solid #e0c1ff;
+  padding: 0.75rem;
+}
+
+.journal-history th {
+  background-color: #f3d9ff;
+  color: #6a1b9a;
+}
+
+.journal-history td {
+  color: #4a0072;
+}
+
+.edit-btn, .delete-btn {
+  background-color: #da8eff;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.7rem;
+  margin: 0 0.3rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #9c27b0;
+}
+.delete-btn:hover {
+  background-color: #e91e63;
+}
+
+
+
+.chart-section h3 {
+  color: #8e24aa;
+  margin-bottom: 1rem;
+}
+
+.filter-dropdown {
+  margin-bottom: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #b47cc7;
+}
+
+.mood-legend {
+  margin-top: 2rem;
+  background-color: #f5dcff;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.mood-legend p {
+  margin: 0.5rem 0;
+  color: #6a1b9a;
+  font-size: 0.95rem;
+}
+
+
+
+
+
