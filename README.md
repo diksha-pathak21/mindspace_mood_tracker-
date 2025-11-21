@@ -2,28 +2,29 @@
 
 
 
+
 A full-stack web app to track your mood with emoji-based inputs, short journal entries, and visualize mood trends over time.
 
- Tech Stack
+TECH STACK
 
-Frontend: React, Recharts, CSS
+-> Frontend: React, Recharts, CSS
 
-Backend: Node.js, Express
+-> Backend: Node.js, Express
 
-Database: PostgreSQL
+-> Database: PostgreSQL
 
-Authentication: JWT, bcrypt
+-> Authentication: JWT, bcrypt
 
 
- Features
+FEATURES
 
- Emoji-based mood tracking
+-> Emoji-based mood tracking
 
- Micro-journaling with short entries
+->Micro-journaling with short entries
 
- Mood trend visualization using charts
+-> Mood trend visualization using charts
 
- Secure JWT authentication with HTTP-only cookies
+-> Secure JWT authentication with HTTP-only cookies
 
 \- Mood filters (7 days, 30 days, all-time)
 
