@@ -26,9 +26,9 @@ FEATURES
 
 -> Secure JWT authentication with HTTP-only cookies
 
-\- Mood filters (7 days, 30 days, all-time)
+-> Mood filters (7 days, 30 days, all-time)
 
-\- Personalized motivational quotes based on mood
+-> Personalized motivational quotes based on mood
 
 
 
