@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const nodemailer = require("nodemailer");
+
 
 const PORT = 3000;
 const app = express();
@@ -41,26 +43,134 @@ const pool = new Pool({
     port: 5432,
 });
 
-//This is for registration purpose
-app.post('/register', async (req, res) => {
-  const { name,email, password } = req.body;
+const transporter = nodemailer.createTransport({//created a connection to gmail
+  service: "gmail",//use gmail server
+  auth: {//login credentials for gmail
+    user: process.env.EMAIL_USER, //my gmail id
+    pass: process.env.EMAIL_PASS, //my app password
+  },
+});
 
+//test code for checking
+// transporter.verify((error, success) => {
+//   if (error) {
+//     console.log("Error connecting to Gmail:", error);
+//   } else {
+//     console.log("Google Mail Server is ready to take messages!");
+//   }
+// });
+
+app.post("/send-otp", async (req, res) => {
   try {
-    console.log('Received registration data:', { name,email, password });
+    const { email } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
 
-    const result = await pool.query(
-      'INSERT INTO users (name,email, password_hashed) VALUES ($1, $2,$3) RETURNING *',
-      [name,email, hashedPassword]
+    const otp = Math.floor(100000 + Math.random() * 900000);
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Your OTP Verification Code",
+      text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+    await pool.query(
+      "INSERT INTO email_otps (email, otp, expires_at) VALUES ($1, $2, $3)",
+      [email, String(otp), expiresAt]
     );
 
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (err) {
-    console.error('Registration failed:', err);
-    res.status(500).send('Server error');
+    res.json({ message: "OTP sent successfully" });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error sending OTP" });
   }
 });
+
+app.post("/verify-otp", async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({ message: "Email and OTP required" });
+    }
+
+    // Find OTP in DB
+    const result = await pool.query(
+      "SELECT * FROM email_otps WHERE email = $1 AND otp = $2 ORDER BY id DESC LIMIT 1",
+      [email,String(otp)]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    const record = result.rows[0];
+
+    // Check expiry
+    if (new Date() > new Date(record.expires_at)) {
+      return res.status(400).json({ message: "OTP expired" });
+    }
+
+    // OTP verified
+    return res.json({ message: "OTP verified successfully" });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error verifying OTP" });
+  }
+});
+
+
+app.post("/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    // 1. Check if already exists
+    const existing = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+
+    if (existing.rows.length > 0) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    // Check OTP record
+    const otpRecord = await pool.query(
+      "SELECT * FROM email_otps WHERE email = $1 ORDER BY id DESC LIMIT 1",
+      [email]
+    );
+
+    if (otpRecord.rows.length === 0) {
+      return res.status(400).json({ message: "OTP not verified" });
+    }
+
+    // hash password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // 3. Save user
+    await pool.query(
+      "INSERT INTO users (name, email, password_hashed) VALUES ($1, $2, $3)",
+      [name, email, hashedPassword]
+    );
+
+    res.json({ message: "Registered successfully" });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Registration failed" });
+  }
+});
+
+
 
 
 //IN OUR API CALLS, THE FIRST ARGUMENT IS THE API ENDPOINT URL PATH

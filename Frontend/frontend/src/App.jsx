@@ -5,7 +5,7 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import './index.css';
-
+import OtpVerify from './components/OtpVerify';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/verify-otp',        
+    element: <OtpVerify />,     
   },
   {
     path: '/dashboard',
@@ -39,4 +43,5 @@ function App() {
 }
 
 export default App;
+
 

@@ -69,7 +69,7 @@ const Dashboard = () => {
   };
 
   // Group entries by date and calculate average mood per date
-  const groupedData = entries.reduce((acc, entry) => {
+  const groupedData = entries.reduce((acc, entry) => {//loops over all journal entries and then group them by date
     const date = new Date(entry.entry_date).toLocaleDateString();
     const moodValue = moodMap[entry.mood];
 

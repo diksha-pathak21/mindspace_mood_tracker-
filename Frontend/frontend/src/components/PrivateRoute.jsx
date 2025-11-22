@@ -6,3 +6,5 @@ const PrivateRoute = ({ children }) => {
 };
 
 export default PrivateRoute;
+//PrivateRoute checks localStorage.getItem('auth') and redirects to /login if absent.
+//it wraps protected routes

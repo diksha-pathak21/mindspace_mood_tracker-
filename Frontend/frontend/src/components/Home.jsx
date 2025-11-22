@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 
-const Home = () => {
+const Home = () => {//home is a functional react component that return jsx
   const navigate = useNavigate();
 
   return (

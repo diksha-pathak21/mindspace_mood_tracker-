@@ -6,3 +6,4 @@ const api = axios.create({
 });
 
 export default api;
+//it centralises netwrok config so that all components acn use the same base
